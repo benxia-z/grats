@@ -1,1 +1,1 @@
-flask db upgrade; gunicorn grats:app
+web: flask db upgrade; gunicorn grats:app; 
