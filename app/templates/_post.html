@@ -9,9 +9,13 @@
             <a href="{{ url_for('main.user', username=post.author.username) }}">
                 {{ post.author.username }}
             </a> 
-            {{ moment(post.timestamp).fromNow() }}:
+            {{ moment(post.timestamp).fromNow() }}:&nbsp;&nbsp;
+            {% if post.author.username == current_user.username %}
+            <a href="javascript:editPost('{{ post.id }}');">Edit&nbsp;</a>
+            <a href="javascript:deletePost('{{ post.id }}');">Delete</a>
+            {% endif %}
             <br>
-            {{ post.body }}
+            <span id="post-{{ post.id }}">{{ post.body }}</span>
         </td>
     <tr>
 </table>

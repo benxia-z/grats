@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from flask import render_template, flash, redirect, url_for, request, current_app
+from flask import render_template, flash, redirect, url_for, request, current_app, jsonify
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.urls import url_parse
 
@@ -74,3 +74,20 @@ def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
+
+
+@bp.route('/update_post', methods=['POST'])
+def update_post():
+    post = Post.query.filter_by(id=request.form['id']).first()
+    post.body = request.form['body']
+
+    db.session.commit()
+
+    return jsonify({'result': 'success'})
+
+
+@bp.route('/delete_post', methods=['POST'])
+def delete_post():
+    Post.query.filter_by(id=request.form['id']).delete()
+    db.session.commit()
+    return jsonify({'result': 'success', 'redirect': url_for('main.index')})

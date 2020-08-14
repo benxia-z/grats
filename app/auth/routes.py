@@ -46,3 +46,23 @@ def register():
         return redirect(url_for('auth.login'))
     return render_template('auth/register.html', title='Register', form=form)
 
+
+@bp.route('/change_password/', methods=['GET', 'POST'])
+def change_password():
+    if current_user.is_anonymous:
+        return redirect(url_for('main.index'))
+    form = forms.ChangePasswordForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=current_user.username).first()
+        if not user.check_password(form.old_password.data):
+            flash('Incorrect password, please try again.')
+            return redirect(url_for('auth.change_password'))
+        if user.check_password(form.new_password.data):
+            flash('You already have this password, please try again.')
+            return redirect(url_for('auth.change_password'))
+        current_user.set_password(form.new_password.data)
+        db.session.commit()
+        flash('Password successfully updated.')
+        return redirect(url_for('main.user', username=current_user.username))
+    return render_template('auth/change_password.html', title='Change Password',
+                           form=form)

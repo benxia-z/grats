@@ -1,5 +1,6 @@
 {% extends 'bootstrap/base.html' %}
 
+
 {% block title %}
     {% if title %}
         {{ title }} - Grats
@@ -12,7 +13,7 @@
     <nav class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="nav-collapse-1">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-collapse-1" aria-expanded="false">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -52,4 +53,58 @@
 {% block scripts %}
     {{ super() }}
     {{ moment.include_moment() }}
+
+    <script>
+        function editPost(postId) {
+            postBody = $('#post-' + postId).text();
+            editPostForm =
+        '<div class="input-group"> \
+            <textarea class="form-control" id="editPostText-' + postId + '" rows="3">' + postBody + '</textarea> \
+            <div class="input-group-append"> \
+                <button type="button" class="btn btn-primary btn-sm updateButton" post_id="' + postId + '">Submit</button> \
+                <button type="button" class="btn btn-primary btn-sm cancelButton" post_id="' + postId + '">Cancel</button> \
+            </div> \
+        </div>';
+            $('#post-' + postId).html(editPostForm);
+            $('#post-' + postId).data("post" + postId, postBody);
+        };
+
+        $(document).on('click', '.updateButton', function() {
+            var post_id = $(this).attr('post_id');
+
+            var body = $('#editPostText-' + post_id).val();
+            console.log(body);
+
+            req = $.ajax({
+                url: '/update_post',
+                type: 'POST',
+                data: {id: post_id, body: body}
+            });
+
+            req.done(function(data) {
+                $('#post-' + post_id).html(body);
+            })
+
+        });
+
+        $(document).on('click', '.cancelButton', function() {
+            var post_id = $(this).attr('post_id');
+
+            var body = $('#post-' + post_id).data("post" + post_id);
+
+            $('#post-' + post_id).html(body);
+        });
+
+        function deletePost(postId) {
+            req = $.ajax({
+                url: '/delete_post',
+                type: 'POST',
+                data: {id: postId},
+                success: function(data) {
+                    window.location.href = data.redirect;
+                }
+            })
+        };
+
+    </script>
 {% endblock %}

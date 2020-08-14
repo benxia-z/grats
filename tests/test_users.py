@@ -35,7 +35,8 @@ def test_valid_login_logout(test_client, init_db):
     assert b'Profile' not in response.data
     assert b'Logout' not in response.data
     assert b'Login' in response.data
-    assert b'Register' in response.data
+    print(response.data)
+    assert b'See what other people are saying:' in response.data
 
 def test_invalid_login(test_client, init_db):
     response = test_client.post(url_for('auth.login'), data=dict(
