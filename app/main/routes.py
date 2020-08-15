@@ -69,6 +69,11 @@ def edit_profile():
     return render_template('edit_profile.html', title='Edit Profile', form=form)
 
 
+@bp.route('/about')
+def about():
+    return render_template('about.html')
+
+
 @bp.before_request
 def before_request():
     if current_user.is_authenticated:

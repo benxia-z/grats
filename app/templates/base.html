@@ -23,6 +23,7 @@
             <div class="collapse navbar-collapse" id="nav-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url_for('main.index') }}">Home</a></li>
+                    <li><a href="{{ url_for('main.about') }}">About</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_anonymous %}
@@ -59,7 +60,7 @@
             postBody = $('#post-' + postId).text();
             editPostForm =
         '<div class="input-group"> \
-            <textarea class="form-control" id="editPostText-' + postId + '" rows="3">' + postBody + '</textarea> \
+            <textarea class="form-control" id="editPostText-' + postId + '" rows="3" cols="50">' + postBody + '</textarea> \
             <div class="input-group-append"> \
                 <button type="button" class="btn btn-primary btn-sm updateButton" post_id="' + postId + '">Submit</button> \
                 <button type="button" class="btn btn-primary btn-sm cancelButton" post_id="' + postId + '">Cancel</button> \
