@@ -26,7 +26,7 @@ moment = Moment()
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
-
+    app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
     db.init_app(app)
     migrate.init_app(app, db)
     login.init_app(app)
@@ -41,14 +41,6 @@ def create_app(config_class=Config):
     app.register_blueprint(main_bp)
 
     from app import models, quote
-
-
-    # Setting a background schedule to retrieve the quote of the day
-    scheduler = BackgroundScheduler()
-    scheduler.add_job(func=quote.get_quote, trigger="interval", hours=6)
-    scheduler.start()
-
-    atexit.register(lambda: scheduler.shutdown())
 
     if not app.debug and not app.testing:
 

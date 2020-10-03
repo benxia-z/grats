@@ -9,6 +9,11 @@
     {% endif %}
 {% endblock %}
 
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+{% endblock %}
+
 {% block navbar %}
     <nav class="navbar navbar-default">
         <div class="container">
@@ -24,6 +29,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url_for('main.index') }}">Home</a></li>
                     <li><a href="{{ url_for('main.about') }}">About</a></li>
+                    <li><a href="{{ url_for('main.twitterfeed') }}">#grateful</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_anonymous %}
@@ -39,73 +45,23 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-info" role="alert">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-        {% endwith %}
-        {% block app_content %}{% endblock %}
-    </div>
+    <body class="light-theme">
+        <!--<button class="btn-toggle">Toggle Theme</button>-->
+        <div class="container">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info" role="alert">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+            {% block app_content %}{% endblock %}
+        </div>
+    </body>
 {% endblock %}
 
 {% block scripts %}
     {{ super() }}
     {{ moment.include_moment() }}
-
-    <script>
-        function editPost(postId) {
-            postBody = $('#post-' + postId).text();
-            editPostForm =
-        '<div class="input-group"> \
-            <textarea class="form-control" id="editPostText-' + postId + '" rows="3" cols="50">' + postBody + '</textarea> \
-            <div class="input-group-append"> \
-                <button type="button" class="btn btn-primary btn-sm updateButton" post_id="' + postId + '">Submit</button> \
-                <button type="button" class="btn btn-primary btn-sm cancelButton" post_id="' + postId + '">Cancel</button> \
-            </div> \
-        </div>';
-            $('#post-' + postId).html(editPostForm);
-            $('#post-' + postId).data("post" + postId, postBody);
-        };
-
-        $(document).on('click', '.updateButton', function() {
-            var post_id = $(this).attr('post_id');
-
-            var body = $('#editPostText-' + post_id).val();
-            console.log(body);
-
-            req = $.ajax({
-                url: '/update_post',
-                type: 'POST',
-                data: {id: post_id, body: body}
-            });
-
-            req.done(function(data) {
-                $('#post-' + post_id).html(body);
-            })
-
-        });
-
-        $(document).on('click', '.cancelButton', function() {
-            var post_id = $(this).attr('post_id');
-
-            var body = $('#post-' + post_id).data("post" + post_id);
-
-            $('#post-' + post_id).html(body);
-        });
-
-        function deletePost(postId) {
-            req = $.ajax({
-                url: '/delete_post',
-                type: 'POST',
-                data: {id: postId},
-                success: function(data) {
-                    window.location.href = data.redirect;
-                }
-            })
-        };
-
-    </script>
+    <script src="{{url_for('static', filename='myscripts.js')}}"></script>
 {% endblock %}

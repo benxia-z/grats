@@ -1,0 +1,127 @@
+2020-08-14 10:14:55,805 ERROR: Exception on /auth/change_password/ [POST] [in /Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/ben/py_projects/grats/app/auth/routes.py", line 55, in change_password
+    if form.validate_on_submit():
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask_wtf/form.py", line 100, in validate_on_submit
+    return self.is_submitted() and self.validate()
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/wtforms/form.py", line 318, in validate
+    return super(Form, self).validate(extra)
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/wtforms/form.py", line 150, in validate
+    if not field.validate(self, extra):
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/wtforms/fields/core.py", line 226, in validate
+    stop_validation = self._run_validation_chain(form, chain)
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/wtforms/fields/core.py", line 246, in _run_validation_chain
+    validator(form, self)
+  File "/Users/ben/py_projects/grats/app/auth/forms.py", line 47, in validate_old_password
+    if not user.check_password(old_password):
+  File "/Users/ben/py_projects/grats/app/models.py", line 26, in check_password
+    return check_password_hash(self.password_hash, password)
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/werkzeug/security.py", line 221, in check_password_hash
+    return safe_str_cmp(_hash_internal(method, salt, password)[0], hashval)
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/werkzeug/security.py", line 153, in _hash_internal
+    rv = pbkdf2_hex(password, salt, iterations, hashfunc=method)
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/werkzeug/security.py", line 53, in pbkdf2_hex
+    rv = pbkdf2_bin(data, salt, iterations, keylen, hashfunc)
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/werkzeug/security.py", line 79, in pbkdf2_bin
+    data = to_bytes(data)
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/werkzeug/_compat.py", line 202, in to_bytes
+    raise TypeError("Expected bytes")
+TypeError: Expected bytes
+2020-08-14 10:25:41,849 INFO: Microblog startup [in /Users/ben/py_projects/grats/app/__init__.py:71]
+2020-08-14 10:26:35,070 ERROR: Exception on /auth/change_password/ [POST] [in /Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/ben/py_projects/grats/app/auth/routes.py", line 64, in change_password
+    db.session.add()
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/sqlalchemy/orm/scoping.py", line 163, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+TypeError: add() missing 1 required positional argument: 'instance'
+2020-08-14 10:29:06,504 INFO: Microblog startup [in /Users/ben/py_projects/grats/app/__init__.py:71]
+2020-08-14 10:32:19,431 INFO: Microblog startup [in /Users/ben/py_projects/grats/app/__init__.py:71]
+2020-09-06 21:46:40,918 INFO: Microblog startup [in /Users/ben/py_projects/grats/app/__init__.py:71]
+2020-09-06 21:49:10,312 INFO: Microblog startup [in /Users/ben/py_projects/grats/app/__init__.py:71]
+2020-09-06 21:49:56,999 INFO: Microblog startup [in /Users/ben/py_projects/grats/app/__init__.py:71]
+2020-09-23 09:08:25,191 INFO: Microblog startup [in /Users/ben/py_projects/grats/app/__init__.py:71]
+2020-09-26 10:43:47,472 INFO: Microblog startup [in /Users/ben/py_projects/grats/app/__init__.py:71]
+2020-09-26 10:44:29,190 INFO: Microblog startup [in /Users/ben/py_projects/grats/app/__init__.py:71]
+2020-09-29 08:53:29,863 INFO: Microblog startup [in /Users/ben/py_projects/grats/app/__init__.py:71]
+2020-09-29 08:53:37,815 ERROR: Exception on / [GET] [in /Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/ben/py_projects/grats/app/main/routes.py", line 34, in index
+    quote = get_rand_cat_quote()
+  File "/Users/ben/py_projects/grats/helpers.py", line 10, in get_rand_cat_quote
+    random_cat_quote = random.choice(cat_quotes_list)['text']
+NameError: name 'cat_quotes_list' is not defined
+2020-09-29 08:53:41,017 ERROR: Exception on /index/ [GET] [in /Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/ben/py_projects/grats/app/main/routes.py", line 34, in index
+    quote = get_rand_cat_quote()
+  File "/Users/ben/py_projects/grats/helpers.py", line 10, in get_rand_cat_quote
+    random_cat_quote = random.choice(cat_quotes_list)['text']
+NameError: name 'cat_quotes_list' is not defined
+2020-09-29 08:53:42,189 ERROR: Exception on /index/ [GET] [in /Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/ben/py_projects/grats/venv-grats/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/ben/py_projects/grats/app/main/routes.py", line 34, in index
+    quote = get_rand_cat_quote()
+  File "/Users/ben/py_projects/grats/helpers.py", line 10, in get_rand_cat_quote
+    random_cat_quote = random.choice(cat_quotes_list)['text']
+NameError: name 'cat_quotes_list' is not defined

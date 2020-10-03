@@ -9,6 +9,7 @@ from app.main import bp
 from app.main.forms import EditProfileForm, PostForm
 from app.models import User, Post
 from app.quote import get_quote
+from helpers import get_rand_cat_quote
 
 
 @bp.route('/', methods=['GET', 'POST'])
@@ -30,7 +31,7 @@ def index():
     prev_url = url_for('main.index', page=posts.prev_num) \
          if posts.has_prev else None
 
-    quote = current_app.config['QUOTE_OF_THE_DAY']
+    quote = get_rand_cat_quote()
 
     return render_template('index.html', title='Home Page', form=form,
                            posts=posts.items, quote=quote,
@@ -73,6 +74,11 @@ def edit_profile():
 def about():
     return render_template('about.html')
 
+@bp.route('/twitterfeed')
+def twitterfeed():
+    return render_template('twitterfeed.html')
+
+
 
 @bp.before_request
 def before_request():
@@ -83,16 +89,19 @@ def before_request():
 
 @bp.route('/update_post', methods=['POST'])
 def update_post():
-    post = Post.query.filter_by(id=request.form['id']).first()
-    post.body = request.form['body']
+    req = request.get_json()
+    print(req)
+    post = Post.query.filter_by(id=req['id']).first()
+    post.body = req['body']
 
     db.session.commit()
 
     return jsonify({'result': 'success'})
 
 
-@bp.route('/delete_post', methods=['POST'])
+@bp.route('/delete_post', methods=['DELETE'])
 def delete_post():
-    Post.query.filter_by(id=request.form['id']).delete()
+    req = request.get_json()
+    Post.query.filter_by(id=req['id']).delete()
     db.session.commit()
     return jsonify({'result': 'success', 'redirect': url_for('main.index')})
