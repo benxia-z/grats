@@ -83,3 +83,6 @@ venv-grats/
 ENV/
 env.bak/
 venv.bak/
+
+# Logs
+logs/

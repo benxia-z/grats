@@ -1,6 +1,6 @@
 # Grats!
 
 Grats is a public gratitude journal where anyone can share the things they're 
-grateful for. Check it out [here!](https://flask-grats.herokuapp.com/)
+grateful for. 
 
-Built with [flask](https://flask.palletsprojects.com/)
+Check it out live [here!](https://flask-grats.herokuapp.com/)
